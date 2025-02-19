@@ -1,0 +1,12 @@
+
+Question 4. : Test de puissance = gmpy2.powmod 
+(gmpy2.powmod(g0, a0, p0) == puissance(g, a, p))? : True
+(gmpy2.powmod(g1, a1, p1) == puissance(g, a, p))? : True
+(gmpy2.powmod(g2, a2, p2) == puissance(g, a, p))? : True
+(gmpy2.powmod(g3, a3, p3) == puissance(g, a, p))? : True
+(gmpy2.powmod(g4, a4, p4) == puissance(g, a, p))? : True
+(gmpy2.powmod(g5, a5, p5) == puissance(g, a, p))? : True
+(gmpy2.powmod(g6, a6, p6) == puissance(g, a, p))? : True
+(gmpy2.powmod(g7, a7, p7) == puissance(g, a, p))? : True
+(gmpy2.powmod(g8, a8, p8) == puissance(g, a, p))? : True
+(gmpy2.powmod(g9, a9, p9) == puissance(g, a, p))? : True
