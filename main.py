@@ -50,6 +50,11 @@ def KeyGen(N,O):
     
     g = gmpy2.add(gmpy2.mpz(secrets.randbelow(p-4)),2)  #Nombnre entre 2 et p-2
     while ExpMod(g,q,p) !=1 or  ExpMod(g,k,p) ==1:
+        # if (ExpMod(g,q,p) !=1):
+        #     print("ok A")
+        # if (ExpMod(g,k,p) ==1):
+        #     print("ok B")
+            
         g = gmpy2.add(gmpy2.mpz(secrets.randbelow(p-4)),2)
         
     print("Reussi")
