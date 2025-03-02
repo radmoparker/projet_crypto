@@ -1,5 +1,7 @@
 import secrets
 import gmpy2
+import hashlib
+import string
 
 """ fonction ExpMod() qui prend en entr ée p, g et a et qui renvoie en sortie A ≡ ga mod p."""
 def ExpMod(g,a,p):
@@ -22,39 +24,6 @@ def puissance(g, a, p):
     
 
 
-# Test de puissance = gmpy2.powmod
-# print("Test de puissance = gmpy2.powmod ")
-# for i in range(10):
-#     p = gmpy2.next_prime(secrets.randbits(2048))    # entier premier
-#     a = gmpy2.mpz(secrets.randbits(256))   #Format grand entier
-#     g = gmpy2.mpz(secrets.randbelow(p))
-
-#     print(f"(gmpy2.powmod(g{i}, a{i}, p{i}) == puissance(g, a, p))? : {gmpy2.powmod(g, a, p) == puissance(g, a, p)}")
-
-
-
-
-
-# def find_generator(p, q):
-#     """Trouve un générateur g dans (Z/pZ)* de l'ordre q"""
-#     i=0
-#     while True:
-#         i+=1
-#         print(i)
-#         h = secrets.randbelow(p - 4) + 2  # h ∈ [2, p-2]
-#         g = gmpy2.powmod(h, (p - 1) // q, p)  # g = h^((p-1)/q) mod p
-#         if g > 1 and gmpy2.powmod(g, q, p) == 1:  # Vérifier g^q ≡ 1 (mod p)
-#             return g
-# def find_generator_at_least_q(p, q, k):
-#     nb_iteration =0
-#     while True:
-#         nb_iteration +=1
-#         print(nb_iteration)
-#         h = gmpy2.mpz(secrets.randbelow(p - 2)) + 2  # h ∈ [2, p-2]
-#         g = pow(h, k, p)  # g = h^k mod p, ce qui assure un ordre multiple de q
-        
-#         if pow(g, q, p) == 1 and pow(g, k, p) != 1 :  # Vérifie que g^q ≡ 1 mod p
-#             return g
 def find_generator(p, q, k):
     cpt=0
     for g in range(2,p-2):
@@ -80,47 +49,77 @@ def KeyGen(N, O):
     k = gmpy2.mpz(secrets.randbits(O))  
     p = gmpy2.add(1, gmpy2.mul(k, q))  
 
-    # Vérifier que p est premier
+    # p premier
     while not gmpy2.is_prime(p, 10):
         k = gmpy2.mpz(secrets.randbits(O))  
         p = gmpy2.add(1, gmpy2.mul(k, q))  
 
-    while True:
+    trouve = False
+    while not trouve:
         h = gmpy2.mpz(secrets.randbelow(p - 2) + 2)  # h ∈ [2, p-2]
-        g = ExpMod(h, (p - 1) // q, p)  # Utilisation du PTF
+        g = ExpMod(h, (p - 1) // q, p)  # Utilisation du Petit theorem de Fermat
 
         if ExpMod(g, q, p) == 1 and ExpMod(g, k, p) != 1:
-            break  
+            trouve = True  
 
     return p, q, g
-# def KeyGen(N,O):
-#     q = gmpy2.next_prime(secrets.randbits(N)) 
-#     k = gmpy2.mpz(secrets.randbits(O))   #Format grand entier
-#     p = gmpy2.add(1,gmpy2.mul(k,q))
-#     fermat =1 #Paramètre pour faire le test avec Fermat
-#     while not gmpy2.is_prime(p,1):
-#         k = gmpy2.mpz(secrets.randbits(O))   #Format grand entier
-#         p = gmpy2.add(1,gmpy2.mul(k,q))
-        
-        
-#     nb_iteration =0
-#     # # g = find_generator(p, q)
-#     # g = find_generator(p, q, k)
+
+# Question 6
+def Key(p,q,g):
+    ks = gmpy2.mpz(secrets.randbelow(q - 2) + 2)
+    kp = ExpMod(g, ks, p)
     
+    return kp,ks
+
+# Question 8
+def Sign(p, q, g, ks, M):
+
+    R,r = Key(p,q,g)
+    concatenation = str(R).encode() + M.encode() # encode() transforme une chaine de caractère séquence d'octet
+    h = hashlib.sha256(concatenation).digest()   # Converti le hashé en sequence d'octet 
+    c = ExpMod(gmpy2.mpz(int.from_bytes(h, byteorder="big")),1,q)   #On convertit h en int avec gmpy2 avant le calcul expmod
+    
+    a = ExpMod(gmpy2.sub(r, gmpy2.mul(c, ks)),1,q )
+    
+    return c,a
+
+def Verify(p, q, g, kp, M,a,c):
+    R_prim = ExpMod(gmpy2.mul(ExpMod(g,a,p),ExpMod(kp,c,p)),1,p)
+    concatenation = str(R_prim).encode() + M.encode() # encode() transforme une chaine de caractère séquence d'octet
+    h_str = hashlib.sha256(concatenation).digest()
+    h = gmpy2.mpz(int.from_bytes(h_str, byteorder="big")) #On convertit h en int avec gmpy2 avant le calcul expmod
+    
+    result = ExpMod(h,1,q)  
+
+    
+    return ( c == result)
 
 
-#     g = gmpy2.add(gmpy2.mpz(secrets.randbelow(p-4)),2)  #Nombnre entre 2 et p-2 
-#     while ExpMod(g,q,p) !=1 or  ExpMod(g,k,p) ==1:
-#         nb_iteration +=1
-#         if nb_iteration % 10000 ==0:
-#             print(nb_iteration)
-        
-#         # g =find_generator(p, q)
-#         g = gmpy2.add(gmpy2.mpz(secrets.randbelow(p-2)),2)
-        
-#     print("Reussi")
-#     return
 
-#parm N>=256,O>=1792
+print("Nous allons tester 100 valeurs de M (longueur entre 256 et 2048 caractères). Les 80 premières seront signés avec une clé secrète valide, les autres avec une clé invalide ")
 
-KeyGen(256,1792)
+#Génération aléatoire d'une chaine de n  caractère ( 256 <= n <= 2048)
+def random_string_with_length():
+    length = secrets.randbelow(2048 - 256 + 1) + 256
+    alphabet = string.ascii_letters + string.digits + string.punctuation  # Lettres + chiffres + symboles
+    return ''.join(secrets.choice(alphabet) for _ in range(length)),length
+
+#Test sur 100 Messages
+for i in range (1,81):
+    #param N>=256,O>=1792
+    p,q,g = KeyGen(256,1792)
+    kp,ks = Key(p,q,g)
+    M,length = random_string_with_length()
+    c,a = Sign(p, q, g, ks, M)
+    reponse = Verify(p, q, g, kp, M,a,c)
+    print(f"Message {i} de longueur {length} est correctement vérifié ? réponse = {reponse}")
+for i in range(80,101):
+    #param N>=256,O>=1792
+    p,q,g = KeyGen(256,1792)
+    kp,ks = Key(p,q,g)
+    M,length = random_string_with_length()
+    ks_fausse = gmpy2.mpz(secrets.randbelow(q - 2) + 2)
+    c,a = Sign(p, q, g, ks_fausse, M)
+    reponse = Verify(p, q, g, kp, M,a,c)
+    print(f"Message {i} de longueur {length} est correctement vérifié ? réponse = {reponse}")
+    

@@ -10,3 +10,141 @@ Question 4. : Test de puissance = gmpy2.powmod
 (gmpy2.powmod(g7, a7, p7) == puissance(g, a, p))? : True
 (gmpy2.powmod(g8, a8, p8) == puissance(g, a, p))? : True
 (gmpy2.powmod(g9, a9, p9) == puissance(g, a, p))? : True
+
+Question 5:
+p,q,g obtenu avec keygen() :
+p = 1415620640917033841123314025834505446097462201232936557267716156134163465003235131066574564911774142872677562088652678384012226474106181751441130211778398871506463950570343427762590437534679711831385706419609996910294515908746297838633646971521014795035334613563174727820838856121759994687245049319417491434627024463758109040725460198137307215289310834107759527906546715351132677368722863525763523258412435790395482693480572350626840837590500961090555967584601542357633491677774840245360257120532197563797231112188644775661457905181687247669072779575351456930883464657186104710545561754436303544342972917215473149961
+
+
+q = 8122491956867108123419965709541523435163967062050589528636196836394465035627
+
+
+g = 201785999425605963225494211164867671392565413313683666897123117259715750078294235983798837571936303385328468241919994213970511033644174547194458045135071441397056888454577881564054528313734759179876852361611392800124107465040850820979397106086249957982307435338774141023852309171276604545098835682606659074022358245787662271692878242610781047910373299561566358149713032951137485433202174453343564047797507517174220561712506975959347645839277610952338182330598599320039872919243251755097116824857037275051605748259592232485841500368582395989323493346862253109770407332149338178719230768487525709786310998210072410878
+
+
+
+Question 6:
+Affichage de kp,ks à partir de p,q,g
+
+kp = 2057505824367122923977916268492330738761429038973362787201132443110518222992978132290178803985321262290084992771557946665286303473922196779734694862513246802651011923091366621280842247662934744860655510429014042348500453797478656168873750097540131335722782792949631180274883250832561624016806673584901916664305977224969448719416593537411807187159108608610883113066397509311417809668261057294845025282542786888979820320004848657868442884560113513191747075016935325789093400270544476622377958266877311218367405866412252308238397840384335251080203500282990930440202419929847800033148573529545839087679852822597658730304
+
+ks = 40474341382018801917966750879754484040370878867501553298550421395128719190310
+
+Question 8:
+Sign()
+ Signature avec Sign() du message M = J'adore la cryptographie  :
+ c = 3832470818287046023815184926529725623149143871102996574302370015455236602473 
+
+ a = 2915349288890447008628315398004322948583012561978476218422544588080565739554 
+Verify()
+ Vérification d'un message avec  avec la clé public kp correspondant à la clé secrète ks qui a servit à signer le message
+ Est-ce Alice qui a signé le message ? réponse = True
+
+
+Test sur 100 Message:
+
+Nous allons tester 100 valeurs de M (longueur entre 256 et 2048 caractères). 
+Les 80 premières seront signés avec une clé secrète valide, les autres avec une clé invalide 
+
+
+Message 1 de longueur 1235 est correctement vérifié ? réponse = True
+Message 2 de longueur 1126 est correctement vérifié ? réponse = True
+Message 3 de longueur 433 est correctement vérifié ? réponse = True
+Message 4 de longueur 1032 est correctement vérifié ? réponse = True
+Message 5 de longueur 1965 est correctement vérifié ? réponse = True
+Message 6 de longueur 345 est correctement vérifié ? réponse = True
+Message 7 de longueur 1815 est correctement vérifié ? réponse = True
+Message 8 de longueur 279 est correctement vérifié ? réponse = True
+Message 9 de longueur 1124 est correctement vérifié ? réponse = True
+Message 10 de longueur 380 est correctement vérifié ? réponse = True
+Message 11 de longueur 485 est correctement vérifié ? réponse = True
+Message 12 de longueur 334 est correctement vérifié ? réponse = True
+Message 13 de longueur 1414 est correctement vérifié ? réponse = True
+Message 14 de longueur 1618 est correctement vérifié ? réponse = True
+Message 15 de longueur 1790 est correctement vérifié ? réponse = True
+Message 16 de longueur 1450 est correctement vérifié ? réponse = True
+Message 17 de longueur 514 est correctement vérifié ? réponse = True
+Message 18 de longueur 1397 est correctement vérifié ? réponse = True
+Message 19 de longueur 630 est correctement vérifié ? réponse = True
+Message 20 de longueur 546 est correctement vérifié ? réponse = True
+Message 21 de longueur 1686 est correctement vérifié ? réponse = True
+Message 22 de longueur 2013 est correctement vérifié ? réponse = True
+Message 23 de longueur 1012 est correctement vérifié ? réponse = True
+Message 24 de longueur 967 est correctement vérifié ? réponse = True
+Message 25 de longueur 262 est correctement vérifié ? réponse = True
+Message 26 de longueur 1300 est correctement vérifié ? réponse = True
+Message 27 de longueur 985 est correctement vérifié ? réponse = True
+Message 28 de longueur 1220 est correctement vérifié ? réponse = True
+Message 29 de longueur 441 est correctement vérifié ? réponse = True
+Message 30 de longueur 812 est correctement vérifié ? réponse = True
+Message 31 de longueur 869 est correctement vérifié ? réponse = True
+Message 32 de longueur 1894 est correctement vérifié ? réponse = True
+Message 33 de longueur 1840 est correctement vérifié ? réponse = True
+Message 34 de longueur 324 est correctement vérifié ? réponse = True
+Message 35 de longueur 871 est correctement vérifié ? réponse = True
+Message 36 de longueur 685 est correctement vérifié ? réponse = True
+Message 37 de longueur 2045 est correctement vérifié ? réponse = True
+Message 38 de longueur 622 est correctement vérifié ? réponse = True
+Message 39 de longueur 1922 est correctement vérifié ? réponse = True
+Message 40 de longueur 823 est correctement vérifié ? réponse = True
+Message 41 de longueur 506 est correctement vérifié ? réponse = True
+Message 42 de longueur 1273 est correctement vérifié ? réponse = True
+Message 43 de longueur 823 est correctement vérifié ? réponse = True
+Message 44 de longueur 1409 est correctement vérifié ? réponse = True
+Message 45 de longueur 1025 est correctement vérifié ? réponse = True
+Message 46 de longueur 1518 est correctement vérifié ? réponse = True
+Message 47 de longueur 1086 est correctement vérifié ? réponse = True
+Message 48 de longueur 1608 est correctement vérifié ? réponse = True
+Message 49 de longueur 1389 est correctement vérifié ? réponse = True
+Message 50 de longueur 743 est correctement vérifié ? réponse = True
+Message 51 de longueur 1291 est correctement vérifié ? réponse = True
+Message 52 de longueur 311 est correctement vérifié ? réponse = True
+Message 53 de longueur 1077 est correctement vérifié ? réponse = True
+Message 54 de longueur 1249 est correctement vérifié ? réponse = True
+Message 55 de longueur 957 est correctement vérifié ? réponse = True
+Message 56 de longueur 330 est correctement vérifié ? réponse = True
+Message 57 de longueur 1855 est correctement vérifié ? réponse = True
+Message 58 de longueur 1547 est correctement vérifié ? réponse = True
+Message 59 de longueur 876 est correctement vérifié ? réponse = True
+Message 60 de longueur 1721 est correctement vérifié ? réponse = True
+Message 61 de longueur 1890 est correctement vérifié ? réponse = True
+Message 62 de longueur 666 est correctement vérifié ? réponse = True
+Message 63 de longueur 1331 est correctement vérifié ? réponse = True
+Message 64 de longueur 1344 est correctement vérifié ? réponse = True
+Message 65 de longueur 1427 est correctement vérifié ? réponse = True
+Message 66 de longueur 1316 est correctement vérifié ? réponse = True
+Message 67 de longueur 551 est correctement vérifié ? réponse = True
+Message 68 de longueur 1281 est correctement vérifié ? réponse = True
+Message 69 de longueur 1673 est correctement vérifié ? réponse = True
+Message 70 de longueur 258 est correctement vérifié ? réponse = True
+Message 71 de longueur 957 est correctement vérifié ? réponse = True
+Message 72 de longueur 643 est correctement vérifié ? réponse = True
+Message 73 de longueur 1561 est correctement vérifié ? réponse = True
+Message 74 de longueur 1817 est correctement vérifié ? réponse = True
+Message 75 de longueur 1437 est correctement vérifié ? réponse = True
+Message 76 de longueur 345 est correctement vérifié ? réponse = True
+Message 77 de longueur 795 est correctement vérifié ? réponse = True
+Message 78 de longueur 1607 est correctement vérifié ? réponse = True
+Message 79 de longueur 733 est correctement vérifié ? réponse = True
+Message 80 de longueur 682 est correctement vérifié ? réponse = True
+Message 80 de longueur 1764 est correctement vérifié ? réponse = False
+Message 81 de longueur 1741 est correctement vérifié ? réponse = False
+Message 82 de longueur 1149 est correctement vérifié ? réponse = False
+Message 83 de longueur 1366 est correctement vérifié ? réponse = False
+Message 84 de longueur 798 est correctement vérifié ? réponse = False
+Message 85 de longueur 1596 est correctement vérifié ? réponse = False
+Message 86 de longueur 658 est correctement vérifié ? réponse = False
+Message 87 de longueur 571 est correctement vérifié ? réponse = False
+Message 88 de longueur 1782 est correctement vérifié ? réponse = False
+Message 89 de longueur 1377 est correctement vérifié ? réponse = False
+Message 90 de longueur 893 est correctement vérifié ? réponse = False
+Message 91 de longueur 908 est correctement vérifié ? réponse = False
+Message 92 de longueur 907 est correctement vérifié ? réponse = False
+Message 93 de longueur 575 est correctement vérifié ? réponse = False
+Message 94 de longueur 374 est correctement vérifié ? réponse = False
+Message 95 de longueur 2035 est correctement vérifié ? réponse = False
+Message 96 de longueur 874 est correctement vérifié ? réponse = False
+Message 97 de longueur 957 est correctement vérifié ? réponse = False
+Message 98 de longueur 1683 est correctement vérifié ? réponse = False
+Message 99 de longueur 1648 est correctement vérifié ? réponse = False
+Message 100 de longueur 658 est correctement vérifié ? réponse = False
